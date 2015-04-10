@@ -7,14 +7,21 @@
 //
 
 #import "ViewController.h"
+@interface Subject : NSObject
+@property (nonatomic, strong) NSArray *oneYearArray;
+@property (nonatomic, strong) NSArray *twoYearArray;
+@property (nonatomic, strong) NSArray *threeYearArray;
+@property (nonatomic, strong) NSArray *selectYearArray;
+@property (nonatomic, assign) NSInteger selectYearInt;
+
+@end
+
+@implementation Subject
+@end
 
 @implementation ViewController {
+    Subject *subject;
     UIPickerView *picker;
-    NSArray *schoolYearArray;
-    NSArray *oneYearSubjectArray;
-    NSArray *twoYearSubjectArray;
-    NSArray *threeYearSubjectArray;
-    int selectYearInt;
     NSArray *systemArray;
 }
 
@@ -27,12 +34,13 @@
     picker.showsSelectionIndicator = YES;
     [self.view addSubview:picker];
     
-    schoolYearArray = [[NSMutableArray alloc] initWithObjects:@"1年生",@"２年生",@"3年生",nil];
-    oneYearSubjectArray = [[NSMutableArray alloc] initWithObjects:@"国語1",@"数学A",@"理科",@"世界史",@"英語",@"家庭科",nil];
-    twoYearSubjectArray = [[NSMutableArray alloc] initWithObjects:@"国語2",@"数学B",@"理科",@"日本史",@"美術",nil];
-    threeYearSubjectArray = [[NSMutableArray alloc] initWithObjects:@"国語3",@"数学C",@"英語",nil];
+    subject = [[Subject alloc]init];
+    subject.selectYearArray = [[NSMutableArray alloc] initWithObjects:@"1年生",@"２年生",@"3年生",nil];
+    subject.oneYearArray = [[NSMutableArray alloc] initWithObjects:@"国語1",@"数学A",@"理科",@"世界史",@"英語",@"家庭科",nil];
+    subject.twoYearArray = [[NSMutableArray alloc] initWithObjects:@"国語2",@"数学B",@"理科",@"日本史",@"美術",nil];
+    subject.threeYearArray = [[NSMutableArray alloc] initWithObjects:@"国語3",@"数学C",@"英語",nil];
     systemArray = [[NSMutableArray alloc] initWithObjects:@"授業",@"テスト対策",nil];
-    selectYearInt=1;
+    subject.selectYearInt=1;
 }
 
 #pragma mark - Picker DataSource Methods
@@ -45,18 +53,18 @@
 numberOfRowsInComponent:(NSInteger)component {
     switch (component) {
         case 0:
-            return schoolYearArray.count;
+            return subject.selectYearArray.count;
             break;
         case 1:
-            switch (selectYearInt) {
+            switch (subject.selectYearInt) {
                 case 1:
-                    return oneYearSubjectArray.count;
+                    return subject.oneYearArray.count;
                     break;
                 case 2:
-                    return twoYearSubjectArray.count;
+                    return subject.twoYearArray.count;
                     break;
                 case 3:
-                    return threeYearSubjectArray.count;
+                    return subject.threeYearArray.count;
                     break;
                 default:
                     return 0;
@@ -94,18 +102,18 @@ numberOfRowsInComponent:(NSInteger)component {
              titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     switch (component) {
         case 0:
-            return [NSString stringWithFormat:@"%@", schoolYearArray[row]];
+            return [NSString stringWithFormat:@"%@", subject.selectYearArray[row]];
             break;
         case 1:
-            switch (selectYearInt) {
+            switch (subject.selectYearInt) {
                 case 1:
-                    return [NSString stringWithFormat:@"%@", oneYearSubjectArray[row]];
+                    return [NSString stringWithFormat:@"%@", subject.oneYearArray[row]];
                     break;
                 case 2:
-                    return [NSString stringWithFormat:@"%@", twoYearSubjectArray[row]];
+                    return [NSString stringWithFormat:@"%@", subject.twoYearArray[row]];
                     break;
                 case 3:
-                    return [NSString stringWithFormat:@"%@", threeYearSubjectArray[row]];
+                    return [NSString stringWithFormat:@"%@", subject.threeYearArray[row]];
                     break;
                 default:
                     return 0;
@@ -124,7 +132,7 @@ numberOfRowsInComponent:(NSInteger)component {
 - (void)pickerView:(UIPickerView *)pickerView
       didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     NSInteger val0 = [pickerView selectedRowInComponent:0];
-    selectYearInt = (int)val0+1;
+    subject.selectYearInt = (int)val0+1;
     [pickerView reloadAllComponents];
 }
 @end
