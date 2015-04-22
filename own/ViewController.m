@@ -57,11 +57,10 @@
     systemArray = [[NSMutableArray alloc] initWithObjects:@"授業",@"テスト対策",nil];
     subject.selectYearInt=1;
     
-    // ピッカー呼び出しボタン作成
     UIButton *button =
     [UIButton buttonWithType:UIButtonTypeRoundedRect];
     button.center = CGPointMake(150, 250);
-    [button setTitle:@"選択ボタン"
+    [button setTitle:@"ピッカー呼び出しボタン"
             forState:UIControlStateNormal];
     [button sizeToFit];
     [button addTarget:self action:@selector(button_Tapped:) forControlEvents:UIControlEventTouchUpInside];
