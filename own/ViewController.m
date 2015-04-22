@@ -122,7 +122,7 @@
 }
 
 #pragma mark - Picker DataSource Methods
-//ピッカーに表示する列数
+//ピッカーに表示する列数を返す
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 3;
 }
